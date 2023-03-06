@@ -1,0 +1,173 @@
+#! /bin/sh
+
+# Create directories
+if [ ! -d "$HOME/Documents/text_files" ]; then
+  mkdir "$HOME/Documents/text_files"
+else
+  echo "Found text_files folder"
+fi
+
+if [ ! -d "$HOME/Documents/pdf_files" ]; then
+  mkdir "$HOME/Documents/pdf_files"
+else
+  echo "Found pdf_files folder"
+fi
+
+if [ ! -d "$HOME/Documents/archives" ]; then
+  mkdir "$HOME/Documents/archives"
+else
+  echo "Found archives folder"
+fi
+
+if [ ! -d "$HOME/Documents/app_downloads" ]; then
+  mkdir "$HOME/Documents/app_downloads"
+else
+  echo "Found app_downloads folder"
+fi
+
+if [ ! -d "$HOME/Documents/random" ]; then
+  mkdir "$HOME/Documents/random"
+else
+  echo "Found random folder"
+fi
+
+if [ ! -d "$HOME/Documents/csv_files" ]; then
+  mkdir "$HOME/Documents/csv_files"
+else
+  echo "Found csv_files folder"
+fi
+
+if [ ! -d "$HOME/Documents/json_files" ]; then
+  mkdir "$HOME/Documents/json_files"
+else
+  echo "Found json_files folder"
+fi
+
+if [ ! -d "$HOME/Documents/iso_files" ]; then
+  mkdir "$HOME/Documents/iso_files"
+else
+  echo "Found iso_files folder"
+fi
+
+if [ ! -d "$HOME/Documents/logs" ]; then
+  mkdir "$HOME/Documents/logs"
+else
+  echo "Found logs folder"
+fi
+
+# Move files
+
+# .txt files
+if mv "$HOME/"*.txt "$HOME/Documents/text_files" 2>/dev/null || mv "$HOME/Documents/"*.txt "$HOME/Documents/text_files" 2>/dev/null || mv "$HOME/Downloads/"*.txt "$HOME/Documents/text_files" 2>/dev/null; then
+  echo "All .txt files have been moved to the text_files folder"
+else
+  echo "No text files found"
+fi
+
+# pdf files
+if mv "$HOME/"*.pdf "$HOME/Documents/pdf_files" 2>/dev/null || mv "$HOME/Documents/"*.pdf "$HOME/Documents/pdf_files" 2>/dev/null || mv "$HOME/Downloads/"*.pdf "$HOME/Documents/pdf_files" 2>/dev/null; then
+  echo "All .pdf files have been moved to the pdf_files folder"
+else
+  echo "No pdf files found"
+fi
+
+# csv files
+if mv "$HOME/"*.csv "$HOME/Documents/csv_files" 2>/dev/null || mv "$HOME/Documents/"*.csv "$HOME/Documents/csv_files" 2>/dev/null || mv "$HOME/Downloads/"*.csv "$HOME/Documents/csv_files" 2>/dev/null; then
+  echo "All .csv files have been moved to the csv_files folder"
+else
+  echo "No csv files found"
+fi
+
+# json files
+if mv "$HOME/"*.json "$HOME/Documents/json_files" 2>/dev/null || mv "$HOME/Documents/"*.json "$HOME/Documents/json_files" 2>/dev/null || mv "$HOME/Downloads/"*.json "$HOME/Documents/json_files" 2>/dev/null; then
+  echo "All .json files have been moved to the json_files folder"
+else
+  echo "No json files found"
+fi
+
+# iso files
+if mv "$HOME/"*.iso "$HOME/Documents/iso_files" 2>/dev/null || mv "$HOME/Documents/"*.iso "$HOME/Documents/iso_files" 2>/dev/null || mv "$HOME/Downloads/"*.iso "$HOME/Documents/iso_files" 2>/dev/null; then
+  echo "All .iso files have been moved to the iso_files folder"
+else
+  echo "No iso files found"
+fi
+
+# log files
+if mv "$HOME/"*.log "$HOME/Documents/logs" 2>/dev/null || mv "$HOME/Documents/"*.log "$HOME/Documents/logs" 2>/dev/null || mv "$HOME/Downloads/"*.log "$HOME/Documents/logs" 2>/dev/null; then
+  echo "All .log files have been moved to the logs folder"
+else
+  echo "No log files found"
+fi
+
+# images
+if mv "$HOME/"*.{jpg,png,gif} "$HOME/Pictures" 2>/dev/null || mv "$HOME/Documents/"*.{jpg,png,gif} "$HOME/Pictures" 2>/dev/null || mv "$HOME/Downloads/"*.{jpg,png,gif} "$HOME/Pictures" 2>/dev/null; then
+  echo "All image files have been moved to the Pictures folder"
+else
+  echo "No image files found"
+fi
+
+# Archives & random
+
+# Home
+for file in "$HOME"/*; do
+  if [ ! -d "$file" ]; then
+    # Check if the file is an archive
+    if file "$file" | grep -q "archive"; then
+      read -p "Remove file $file? y/n: " answer
+      if [ "$answer" == "y" ]; then
+        rm -rf "$file"
+      else
+        mv "$file" "$HOME/Documents/archives"
+      fi
+    fi
+    read -p "Remove file $file? y/n: " answer
+    if [ "$answer" == "y" ]; then
+      rm -rf "$file"
+    else
+      mv "$file" "$HOME/Documents/random"
+    fi
+  fi
+done
+
+
+# Downloads
+for file in "$HOME"/Downloads/*; do
+  if [ ! -d "$file" ]; then
+    # Check if the file is an archive
+    if file "$file" | grep -q "archive"; then
+      read -p "Remove file $file? y/n: " answer
+      if [ "$answer" == "y" ]; then
+        rm -rf "$file"
+      else
+        mv "$file" "$HOME/Documents/archives"
+      fi
+    fi
+    read -p "Remove file $file? y/n: " answer
+    if [ "$answer" == "y" ]; then
+      rm -rf "$file"
+    else
+      mv "$file" "$HOME/Documents/random"
+    fi
+  fi
+done
+
+# Documents
+for file in "$HOME"/Documents/*; do
+  if [ ! -d "$file" ]; then
+    # Check if the file is an archive
+    if file "$file" | grep -q "archive"; then
+      read -p "Remove file $file? y/n: " answer
+      if [ "$answer" == "y" ]; then
+        rm -rf "$file"
+      else
+        mv "$file" "$HOME/Documents/archives"
+      fi
+    fi
+    read -p "Remove file $file? y/n: " answer
+    if [ "$answer" == "y" ]; then
+      rm -rf "$file"
+    else
+      mv "$file" "$HOME/Documents/random"
+    fi
+  fi
+done
