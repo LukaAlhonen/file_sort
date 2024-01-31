@@ -1,2 +1,2 @@
 # file_sort
-Simple Bahs script for file system cleanup
+Simple bash script I made to sort files on my linux desktop
